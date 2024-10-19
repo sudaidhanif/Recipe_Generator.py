@@ -1,0 +1,31 @@
+pip freeze > requirements.txt
+llama-cpp-python
+streamlit
+import streamlit as st
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+# Load GPT-2 model and tokenizer from Hugging Face
+model = GPT2LMHeadModel.from_pretrained("mrm8488/gpt2-finetuned-recipes-cooking")
+tokenizer = GPT2Tokenizer.from_pretrained("mrm8488/gpt2-finetuned-recipes-cooking")
+
+# Function to generate recipe using Hugging Face model
+def generate_recipe(dish_name):
+    input_text = f"Recipe for {dish_name}:"
+    inputs = tokenizer.encode(input_text, return_tensors="pt")
+    outputs = model.generate(inputs, max_length=200, num_return_sequences=1)
+    recipe = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return recipe
+
+# Streamlit UI
+st.title("Cooking Recipe Finder")
+st.write("Enter a dish name and get a recipe!")
+
+user_input = st.text_input("Enter the name of a dish:")
+
+if user_input:
+    recipe = generate_recipe(user_input)
+    st.write(f"Recipe for {user_input}:")
+    st.write(recipe)
+streamlit
+transformers
+torch
