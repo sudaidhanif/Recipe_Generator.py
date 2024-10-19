@@ -1,4 +1,4 @@
-!pip install streamlit
+
 import streamlit as st
 from llama_cpp import Llama
 
@@ -28,4 +28,4 @@ if user_input:
     recipe = generate_recipe(user_input)
     st.write(f"Recipe for {user_input}:")
     st.write(recipe)
-streamlit run app.py
+
